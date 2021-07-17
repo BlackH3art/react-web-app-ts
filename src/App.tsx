@@ -1,53 +1,38 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import './App.css';
-import { Product, Order } from './data/entities';
-import { ProductList } from './components/ProductList/ProductList';
 
-let testData: Product[] = [1, 2, 3, 4, 5].map(item => ({
-  id: item,
-  name: `prod${item}`,
-  category: `kateg${item % 2}`,
-  description: `PAfsapj faspfpsaj fpsajf ${item}${item+2}`,
-  price: 11.26 * item
-}));
+import { dataStore } from './data/dataStore';
+import { Provider } from 'react-redux';
+import { HttpHandler } from './data/httpHandler';
+import { addProduct } from './data/actionCreators';
+import { ConnectedProductList } from './data/productListConnector';
+
 
 export interface Props {
   
 }
  
-export interface State {
-  order: Order
-}
  
-class App extends Component<Props, State> {
+export default class App extends Component<Props> {
+
+  private httpHandler= new HttpHandler();
+
   constructor(props: Props) {
     super(props);
-    this.state = { order: new Order()  };
+    this.httpHandler.loadProducts(data => dataStore.dispatch(addProduct(...data)))
   }
 
-  get categories(): string[] {
-    return [...new Set(testData.map(product => product.category))];
+  addToOrder = () => {
+    console.log('Submit order');
   }
 
-  addToOrder = (product: Product, quantity: number): void => {
-    this.setState(state => {
-      state.order.addProduct(product, quantity);
-      return state;
-    })
-  }
   render() { 
     return (  
       <div className="App">
-        <ProductList 
-          products={testData}
-          categories={this.categories}
-          order={this.state.order}
-          addToOrder={this.addToOrder}
-        />
+        <Provider store={dataStore}>
+          <ConnectedProductList />
+        </Provider>
       </div>
     );
   }
 }
- 
-export default App;
-

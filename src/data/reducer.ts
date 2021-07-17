@@ -25,5 +25,8 @@ export const StoreReducer: Reducer<StoreData, StoreAction> = (data: StoreData | 
         ...data,
         order: new Order()
       }
+
+    default:
+      return data;
   }
 }
