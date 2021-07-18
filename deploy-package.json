@@ -1,0 +1,11 @@
+{
+  "name": "react-app-ts",
+  "descripton": "Aplikacja internetowa React z użyciem TS.",
+  "repository": "https://github.com/BlackH3art/react-web-app-ts",
+  "license": "OBSD",
+  "devDependencies": {
+    "connect-history-api-fallback": "^1.6.0",
+    "express": "^4.17.1",
+    "json-server": "^0.16.3"
+  }
+}
