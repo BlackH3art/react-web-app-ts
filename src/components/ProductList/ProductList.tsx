@@ -52,7 +52,7 @@ export class ProductList extends Component<Props, State> {
             </div>
 
             <div className="col-9 p-2">
-              {this.props.products.map(product => ( // this.products w książce
+              {this.products.map(product => (
                 <ProductItem key={product.id} product={product} callback={this.props.addToOrder} />
               ))}
             </div>
